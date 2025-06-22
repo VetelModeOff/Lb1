@@ -1,1 +1,45 @@
+inventory = {
+    "apples": 10,
+    "bananas": 3,
+    "oranges": 7,
+    "milk": 2,
+    "bread": 6
+}
 
+def update_inventory(product_name, quantity_change):
+
+    if product_name in inventory:
+        inventory[product_name] += quantity_change
+    else:
+        inventory[product_name] = quantity_change
+
+    if inventory[product_name] < 0:
+        inventory[product_name] = 0
+
+def get_low_stock(threshold=5):
+
+    low_stock = []
+    for product, quantity in inventory.items():
+        if quantity < threshold:
+            low_stock.append(product)
+    return low_stock
+
+print("Current inventory:")
+for product, qty in inventory.items():
+    print(f"{product}: {qty}")
+
+update_inventory("bananas", 5)
+update_inventory("milk", -1)  
+update_inventory("eggs", 4)
+
+print("Updated inventory:")
+for product, qty in inventory.items():
+    print(f"{product}: {qty}")
+
+low_stock_items = get_low_stock()
+
+print("\Products with less than 5 in stock:")
+if low_stock_items:
+    print(", ".join(low_stock_items))
+else:
+    print("No products are low in stock.")
