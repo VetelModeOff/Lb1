@@ -1,0 +1,34 @@
+import hashlib
+
+users = {
+    "ivanov123": {
+        "password": hashlib.md5("qwerty123".encode()).hexdigest(),
+        "full_name": "Іванов Іван Іванович"
+    },
+    "petrenko456": {
+        "password": hashlib.md5("passssssssss".encode()).hexdigest(),
+        "full_name": "Петренко Олена Віталіївна"
+    }
+}
+
+
+def check_password(login, input_password):
+
+    if login not in users:
+        print("Користувача не знайдено.")
+        return False
+
+    hashed_input = hashlib.md5(input_password.encode()).hexdigest()
+    if users[login]["password"] == hashed_input:
+        print(f"Вхід успішний. Вітаємо, {users[login]['full_name']}!")
+        return True
+    else:
+        print("Невірний пароль.")
+        return False
+
+
+print("=== Вхід до системи ===")
+login_input = input("Логін: ")
+password_input = input("Пароль: ")
+
+check_password(login_input, password_input)
