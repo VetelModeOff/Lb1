@@ -1,0 +1,41 @@
+sales = [
+    {"product": "laptop", "quantity": 3, "price": 800},
+    {"product": "phone", "quantity": 10, "price": 500},
+    {"product": "tablet", "quantity": 5, "price": 300},
+    {"product": "pc", "quantity": 2, "price": 850},
+    {"product": "phone", "quantity": 7, "price": 520},
+    {"product": "monitor", "quantity": 4, "price": 200}
+]
+
+def calculate_total_revenue(sales_list):
+
+    revenue_dict = {}
+
+    for sale in sales_list:
+        product = sale["product"]
+        total_sale = sale["quantity"] * sale["price"]
+
+        if product in revenue_dict:
+            revenue_dict[product] += total_sale
+        else:
+            revenue_dict[product] = total_sale
+
+    return revenue_dict
+
+def products_above_revenue(revenue_dict, threshold=1000):
+
+    return [product for product, revenue in revenue_dict.items() if revenue > threshold]
+
+total_revenue = calculate_total_revenue(sales)
+
+print("Загальний дохід по продуктах:")
+for product, revenue in total_revenue.items():
+    print(f"{product}: ${revenue}")
+
+high_earning_products = products_above_revenue(total_revenue)
+
+print("Продукти з доходом більшим за 1000:")
+if high_earning_products:
+    print(", ".join(high_earning_products))
+else:
+    print("Немає продуктів із доходом понад 1000.")
