@@ -1,0 +1,48 @@
+tasks = {
+    "Write report": "в процесі",
+    "Fix bug #234": "очікує",
+    "Team meeting": "виконано"
+}
+
+def add_task(name, status="очікує"):
+
+    if name in tasks:
+        print(f"Task '{name}' already exists.")
+    else:
+        tasks[name] = status
+        print(f"Task '{name}' added with status '{status}'.")
+
+def remove_task(name):
+
+    if name in tasks:
+        del tasks[name]
+        print(f"Task '{name}' removed.")
+    else:
+        print(f"Task '{name}' not found.")
+
+def update_status(name, new_status):
+
+    if name in tasks:
+        tasks[name] = new_status
+        print(f"Status of '{name}' updated to '{new_status}'.")
+    else:
+        print(f"Task '{name}' not found.")
+
+def get_pending_tasks():
+
+    return [name for name, status in tasks.items() if status == "очікує"]
+
+print("Початкові задачі:")
+for task, status in tasks.items():
+    print(f"- {task}: {status}")
+
+add_task("Deploy website")
+update_status("Fix bug #234", "в процесі")
+remove_task("Team meeting")
+add_task("Code review", "очікує")
+pending = get_pending_tasks()
+print("\nЗадачі зі статусом 'очікує':")
+if pending:
+    print(", ".join(pending))
+else:
+    print("Немає задач зі статусом 'очікує'.")
